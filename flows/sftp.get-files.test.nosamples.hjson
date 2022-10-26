@@ -1,0 +1,86 @@
+{
+  api_version: "2.0"
+  default_mapper_type: jsonata
+  description: null
+  due_execution: 2022-06-28T01:12:04.108Z
+  graph:
+  {
+    edges:
+    [
+      {
+        id: step_1:step_3
+        source: step_1
+        target: step_3
+      }
+    ]
+    nodes:
+    [
+      {
+        command:
+        {
+          actionOrTrigger: pollingTrigger
+          componentVersion: fc8b5b6acd61e9e6efcce6b966b10ac19cbd2592
+        }
+        component_id:
+        {
+          componentDevTeam: elasticio
+          componentId: 56781c9873917c0a000000cf
+          componentName: sftp
+          componentSemanticVersion: 1.4.8
+        }
+        credentials_id:
+        {
+          credentialId: 602aaed11335120011b1cb3d
+          credentialName: vh328.timeweb.ru
+        }
+        description: ""
+        fields:
+        {
+          directory: alshaya-test
+          emitBehaviour: fetchAll
+        }
+        first: true
+        id: step_1
+        name: ""
+      }
+      {
+        command:
+        {
+          actionOrTrigger: execute
+          componentVersion: 2ddfa9babce1c520bca5218499932176f68d933f
+        }
+        component_id:
+        {
+          componentDevTeam: elasticio
+          componentId: 566d7ca473917c0a0000005c
+          componentName: code
+          componentSemanticVersion: 1.2.8
+        }
+        description: ""
+        fields:
+        {
+          code:
+            '''
+            // Please note only Node.js code is supported here
+            const {createWriteStream, createReadStream} = require('fs');
+
+            async function run(msg, cfg, snapshot) {
+            	this.logger.info('Incoming message is %s', JSON.stringify(msg));
+            	const body = { result : 'Hello world!' };
+            	// You can emit as many data messages as required
+            	await this.emit('data', { body });
+            	this.logger.info('Execution finished');
+            }
+
+            '''
+        }
+        id: step_3
+        name: ""
+      }
+    ]
+  }
+  name: sftp.get-files.test
+  nodes_config: {}
+  stats_enabled: true
+  type: ordinary
+}
